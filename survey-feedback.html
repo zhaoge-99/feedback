@@ -1,0 +1,1034 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>智慧丝路网站使用意见调查</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+    background: linear-gradient(135deg, #8B4513 0%, #D2691E 40%, #CD853F 100%);
+    min-height: 100vh;
+    padding: 16px 12px;
+    color: #333;
+}
+.container { max-width: 640px; margin: 0 auto; }
+.header { text-align: center; color: white; margin-bottom: 16px; padding: 8px; }
+.header h1 { font-size: 20px; margin-bottom: 6px; text-shadow: 0 2px 4px rgba(0,0,0,0.3); }
+.header p { font-size: 12px; opacity: 0.9; line-height: 1.5; }
+.lang-bar {
+    background: rgba(255,255,255,0.15); backdrop-filter: blur(10px);
+    border-radius: 12px; padding: 12px 16px; margin-bottom: 16px;
+    display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+}
+.lang-bar label { color: white; font-size: 13px; font-weight: 600; white-space: nowrap; }
+.lang-select {
+    flex: 1; min-width: 150px; padding: 10px 14px; border: none; border-radius: 10px;
+    font-size: 14px; background: white; color: #333; cursor: pointer; appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%238B4513' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat; background-position: right 12px center; padding-right: 32px;
+}
+.progress-text { color: white; text-align: center; font-size: 12px; margin-bottom: 8px; opacity: 0.9; }
+.progress-bar { background: rgba(255,255,255,0.25); border-radius: 10px; height: 6px; margin-bottom: 16px; overflow: hidden; }
+.progress-fill { background: #fff; height: 100%; border-radius: 10px; transition: width 0.4s ease; width: 0%; }
+.card {
+    background: white; border-radius: 16px; padding: 22px 16px; margin-bottom: 12px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.12); display: none; animation: slideIn 0.35s ease;
+}
+.card.active { display: block; }
+@keyframes slideIn { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+.section-title {
+    font-size: 17px; font-weight: 700; color: #8B4513; margin-bottom: 18px;
+    padding-bottom: 8px; border-bottom: 2px solid #f0f0f0;
+}
+.question { margin-bottom: 22px; }
+.question:last-child { margin-bottom: 0; }
+.question-title { font-size: 14px; font-weight: 600; margin-bottom: 10px; line-height: 1.5; color: #222; }
+.required { color: #e74c3c; margin-left: 2px; }
+.options { display: flex; flex-direction: column; gap: 7px; }
+.option {
+    display: flex; align-items: center; padding: 11px 12px; background: #f8f9fa;
+    border-radius: 10px; cursor: pointer; transition: all 0.2s; border: 2px solid transparent; min-height: 44px;
+}
+.option:active { transform: scale(0.98); }
+.option.selected { background: #fdf5e6; border-color: #D2691E; }
+.option input { display: none; }
+.radio-box {
+    width: 18px; height: 18px; border: 2px solid #ccc; border-radius: 50%;
+    margin-right: 10px; display: flex; align-items: center; justify-content: center;
+    transition: all 0.2s; flex-shrink: 0;
+}
+.option.selected .radio-box { border-color: #D2691E; }
+.radio-box::after { content: ""; width: 9px; height: 9px; background: #D2691E; border-radius: 50%; display: none; }
+.option.selected .radio-box::after { display: block; }
+.check-box {
+    width: 18px; height: 18px; border: 2px solid #ccc; border-radius: 4px;
+    margin-right: 10px; display: flex; align-items: center; justify-content: center;
+    transition: all 0.2s; flex-shrink: 0;
+}
+.option.selected .check-box { background: #D2691E; border-color: #D2691E; }
+.check-box::after { content: "✓"; color: white; font-size: 11px; display: none; }
+.option.selected .check-box::after { display: block; }
+.option-text { font-size: 13px; color: #444; line-height: 1.4; }
+.text-input {
+    width: 100%; padding: 11px 13px; border: 2px solid #e8e8e8; border-radius: 10px;
+    font-size: 14px; margin-top: 6px; transition: border-color 0.2s; font-family: inherit;
+}
+.text-input:focus { outline: none; border-color: #D2691E; }
+.other-input { margin-top: 6px; margin-left: 30px; }
+textarea.text-input { resize: vertical; min-height: 60px; }
+.btn-group { display: flex; gap: 10px; margin-top: 22px; }
+.btn {
+    flex: 1; padding: 13px; border: none; border-radius: 12px; font-size: 14px;
+    font-weight: 600; cursor: pointer; transition: all 0.2s; text-align: center;
+}
+.btn:active { transform: scale(0.97); }
+.btn-prev { background: #f0f0f0; color: #666; }
+.btn-next, .btn-submit {
+    background: linear-gradient(135deg, #8B4513 0%, #D2691E 50%, #CD853F 100%); color: white;
+    box-shadow: 0 4px 12px rgba(139, 69, 19, 0.35);
+}
+.btn:disabled { opacity: 0.5; cursor: not-allowed; }
+.result-card {
+    background: white; border-radius: 16px; padding: 28px 18px; text-align: center;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.12); display: none;
+}
+.result-card.active { display: block; animation: slideIn 0.4s ease; }
+.success-icon {
+    width: 72px; height: 72px; background: linear-gradient(135deg, #8B4513 0%, #CD853F 100%);
+    border-radius: 50%; display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 18px; font-size: 36px; color: white;
+}
+.result-title { font-size: 18px; font-weight: 700; color: #333; margin-bottom: 8px; }
+.result-text { font-size: 13px; color: #666; line-height: 1.6; margin-bottom: 18px; }
+.toast {
+    position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
+    background: rgba(0,0,0,0.82); color: white; padding: 12px 22px;
+    border-radius: 10px; font-size: 13px; display: none; z-index: 1000;
+    white-space: nowrap; backdrop-filter: blur(4px);
+}
+.toast.show { display: block; animation: fadeIn 0.2s; }
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+/* Rating 样式 */
+.rating-group { display: flex; gap: 8px; justify-content: center; margin-top: 4px; }
+.rating-btn {
+    width: 44px; height: 44px; border-radius: 50%; border: 2px solid #e0d5c7;
+    background: #faf6f0; display: flex; align-items: center; justify-content: center;
+    font-size: 15px; font-weight: 700; color: #8B4513; cursor: pointer;
+    transition: all 0.2s;
+}
+.rating-btn:active { transform: scale(0.9); }
+.rating-btn.selected { background: #D2691E; border-color: #8B4513; color: white; box-shadow: 0 2px 8px rgba(210,105,30,0.4); }
+.rating-labels { display: flex; justify-content: space-between; font-size: 11px; color: #999; margin-top: 4px; padding: 0 4px; }
+.rating-labels span:last-child { text-align: right; }
+</style>
+</head>
+<body>
+
+<!-- Web3Forms 数据收集 -->
+<script>
+const WEB3FORMS_KEY = 'ca843f5b-95a9-4cd6-94bd-0a4095d8960e';
+
+function submitToServer(answers) {
+    const data = new FormData();
+    data.append('access_key', WEB3FORMS_KEY);
+    data.append('subject', '智慧丝路网站使用意见调查 - 新提交');
+    data.append('from_name', '问卷系统');
+    data.append('time', new Date().toLocaleString('zh-CN'));
+    data.append('language', currentLang);
+
+    for (let key in answers) {
+        if (answers[key]) {
+            data.append(key, answers[key]);
+        }
+    }
+
+    fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        body: data
+    })
+    .then(response => response.json())
+    .then(result => {
+        if (result.success) {
+            console.log('✅ 数据已发送到邮箱');
+        } else {
+            console.error('❌ 发送失败:', result.message);
+        }
+    })
+    .catch(error => {
+        console.error('❌ 网络错误:', error);
+    });
+}
+</script>
+
+<div class="container">
+<div class="header">
+    <h1 id="mainTitle">智慧丝路网站使用意见调查</h1>
+    <p id="subTitle">感谢您使用智慧丝路网站，请花几分钟填写这份问卷，帮助我们改进</p>
+</div>
+
+<div class="lang-bar">
+    <label for="langSelect" id="langLabel">🌐 选择语言 / Language:</label>
+    <select class="lang-select" id="langSelect" onchange="changeLanguage(this.value)">
+        <option value="zh">中文 Chinese</option>
+        <option value="en">English 英语</option>
+        <option value="ja">日本語 Japanese</option>
+        <option value="ko">한국어 Korean</option>
+        <option value="th">ไทย Thai</option>
+        <option value="ru">Русский Russian</option>
+        <option value="fr">Français French</option>
+        <option value="es">Español Spanish</option>
+        <option value="ar">العربية Arabic</option>
+        <option value="vi">Tiếng Việt Vietnamese</option>
+        <option value="id">Bahasa Indonesia</option>
+    </select>
+</div>
+
+<div class="progress-text" id="progressText">完成进度：0/15</div>
+<div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+
+<!-- Page 1: 基本信息 -->
+<div class="card active" data-page="1">
+<div class="section-title" id="sec1">第一部分：基本信息</div>
+
+<div class="question" data-q="1" data-type="text">
+    <div class="question-title" id="q1">1. 您的国籍：<span class="required">*</span></div>
+    <input type="text" class="text-input" id="a1" placeholder="">
+</div>
+
+<div class="question" data-q="2" data-type="text">
+    <div class="question-title" id="q2">2. 您的母语：<span class="required">*</span></div>
+    <input type="text" class="text-input" id="a2" placeholder="">
+</div>
+
+<div class="question" data-q="3" data-type="text">
+    <div class="question-title" id="q3">3. 您的年龄：<span class="required">*</span></div>
+    <input type="text" class="text-input" id="a3" placeholder="">
+</div>
+
+<div class="question" data-q="4" data-type="text">
+    <div class="question-title" id="q4">4. 您的汉语水平：<span class="required">*</span></div>
+    <input type="text" class="text-input" id="a4" placeholder="">
+</div>
+
+<div class="question" data-q="5" data-type="text">
+    <div class="question-title" id="q5">5. 您学习汉语的主要目的是（多选）：<span class="required">*</span></div>
+    <input type="text" class="text-input" id="a5" placeholder="">
+</div>
+
+<div class="btn-group">
+    <div></div>
+    <button class="btn btn-next" id="btnNext1" onclick="nextPage()">下一页</button>
+</div>
+</div>
+
+<!-- Page 2: 使用行为 -->
+<div class="card" data-page="2">
+<div class="section-title" id="sec2">第二部分：网站使用情况</div>
+
+<div class="question" data-q="6" data-type="single">
+    <div class="question-title" id="q6">6. 您使用智慧丝路网站的频率是：<span class="required">*</span></div>
+    <div class="options" id="opts6"></div>
+</div>
+
+<div class="question" data-q="7" data-type="single">
+    <div class="question-title" id="q7">7. 您主要通过什么设备访问网站：<span class="required">*</span></div>
+    <div class="options" id="opts7"></div>
+</div>
+
+<div class="question" data-q="8" data-type="multiple">
+    <div class="question-title" id="q8">8. 您最常用的功能是（多选）：<span class="required">*</span></div>
+    <div class="options" id="opts8"></div>
+    <input type="text" class="text-input other-input" id="o8" style="display:none" placeholder="">
+</div>
+
+<div class="btn-group">
+    <button class="btn btn-prev" onclick="prevPage()">上一页</button>
+    <button class="btn btn-next" onclick="nextPage()">下一页</button>
+</div>
+</div>
+
+<!-- Page 3: 满意度评分 -->
+<div class="card" data-page="3">
+<div class="section-title" id="sec3">第三部分：使用体验评分</div>
+<p style="font-size:12px;color:#999;margin-bottom:16px;" id="ratingHint">评分标准：1=非常不满意，2=不满意，3=一般，4=满意，5=非常满意</p>
+
+<div class="question" data-q="9" data-type="rating">
+    <div class="question-title" id="q9">9. 网站的整体满意度：<span class="required">*</span></div>
+    <div class="rating-group" id="rating9"></div>
+    <div class="rating-labels"><span id="r9l">非常不满意</span><span id="r9r">非常满意</span></div>
+</div>
+
+<div class="question" data-q="10" data-type="rating">
+    <div class="question-title" id="q10">10. 页面加载速度和稳定性：<span class="required">*</span></div>
+    <div class="rating-group" id="rating10"></div>
+    <div class="rating-labels"><span id="r10l">非常不满意</span><span id="r10r">非常满意</span></div>
+</div>
+
+<div class="question" data-q="11" data-type="rating">
+    <div class="question-title" id="q11">11. 操作是否便捷、容易上手：<span class="required">*</span></div>
+    <div class="rating-group" id="rating11"></div>
+    <div class="rating-labels"><span id="r11l">非常不满意</span><span id="r11r">非常满意</span></div>
+</div>
+
+<div class="btn-group">
+    <button class="btn btn-prev" onclick="prevPage()">上一页</button>
+    <button class="btn btn-next" onclick="nextPage()">下一页</button>
+</div>
+</div>
+
+<!-- Page 4: 开放建议 -->
+<div class="card" data-page="4">
+<div class="section-title" id="sec4">第四部分：开放建议</div>
+
+<div class="question" data-q="12" data-type="text">
+    <div class="question-title" id="q12">12. 您觉得智慧丝路网站有什么优点？</div>
+    <textarea class="text-input" id="a12" rows="3"></textarea>
+</div>
+
+<div class="question" data-q="13" data-type="text">
+    <div class="question-title" id="q13">13. 您觉得智慧丝路网站有什么不足点？</div>
+    <textarea class="text-input" id="a13" rows="3"></textarea>
+</div>
+
+<div class="question" data-q="14" data-type="text">
+    <div class="question-title" id="q14">14. 您有什么建议想向我们提出吗？</div>
+    <textarea class="text-input" id="a14" rows="3"></textarea>
+</div>
+
+<div class="question" data-q="15" data-type="single">
+    <div class="question-title" id="q15">15. 您愿意为智慧丝路网站的高级功能付费吗？（可接受价格9.9元/3个月）<span class="required">*</span></div>
+    <div class="options" id="opts15"></div>
+</div>
+
+<div class="btn-group">
+    <button class="btn btn-prev" onclick="prevPage()">上一页</button>
+    <button class="btn btn-submit" id="btnSubmit" onclick="submitSurvey()">提交问卷</button>
+</div>
+</div>
+
+<!-- Result -->
+<div class="result-card" id="resultCard">
+<div class="success-icon">✓</div>
+<div class="result-title" id="resTitle">填写完成！</div>
+<div class="result-text" id="resText">感谢您耐心填写这份问卷！每一条反馈都是我们前进的动力，您的意见将帮助我们做得更好。祝您学习愉快！</div>
+</div>
+</div>
+
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ====== 多语言数据 ======
+const i18n = {
+    "zh": {
+        "title": "智慧丝路网站使用意见调查",
+        "subtitle": "感谢您使用智慧丝路网站，请花几分钟填写这份问卷，帮助我们改进",
+        "langLabel": "🌐 选择语言 / Language:",
+        "sec1": "第一部分：基本信息",
+        "sec2": "第二部分：网站使用情况",
+        "sec3": "第三部分：使用体验评分",
+        "sec4": "第四部分：开放建议",
+        "ratingHint": "评分标准：1=非常不满意，2=不满意，3=一般，4=满意，5=非常满意",
+        "q1": "1. 您的国籍：", "q2": "2. 您的母语：", "q3": "3. 您的年龄：", "q4": "4. 您的汉语水平：",
+        "q5": "5. 您学习汉语的主要目的是（多选）：",
+        "q6": "6. 您使用智慧丝路网站的频率是：",
+        "q7": "7. 您主要通过什么设备访问网站：",
+        "q8": "8. 您最常用的功能是（多选）：",
+        "q9": "9. 网站的整体满意度：",
+        "q10": "10. 页面加载速度和稳定性：",
+        "q11": "11. 操作是否便捷、容易上手：",
+        "q12": "12. 您觉得智慧丝路网站有什么优点？",
+        "q13": "13. 您觉得智慧丝路网站有什么不足点？",
+        "q14": "14. 您有什么建议想向我们提出吗？",
+        "q15": "15. 您愿意为智慧丝路网站的高级功能付费吗？（可接受价格9.9元/3个月）",
+        "ph1": "请输入您的国籍", "ph2": "请输入您的母语",
+        "ph3": "例如：20岁", "ph4": "例如：HSK3级", "ph5": "例如：工作、考试、兴趣...",
+        "ph12": "请写下您喜欢的方面...", "ph13": "请写下需要改进的地方...", "ph14": "请写下您的建议...",
+        "next": "下一页", "prev": "上一页", "submit": "提交问卷",
+        "resTitle": "填写完成！",
+        "resText": "感谢您耐心填写这份问卷！每一条反馈都是我们前进的动力，您的意见将帮助我们做得更好。祝您学习愉快！",
+        "restart": "重新填写",
+        "progress": "完成进度：",
+        "fillAll": "请完成当前页面的所有必填项",
+        "ratings": ["非常不满意", "不满意", "一般", "满意", "非常满意"],
+        "opts": {
+            "age": ["18岁以下", "18-22岁", "23-30岁", "30岁以上", "其他"],
+            "level": ["零基础", "HSK1-2", "HSK3-4", "HSK5-6", "HSK7-9", "其他"],
+            "purpose": ["完成学业/考试", "找工作/实习", "日常交流", "了解中国文化", "其他"],
+            "frequency": ["每天多次", "每天一次", "每周几次", "偶尔使用"],
+            "device": ["电脑/笔记本", "手机", "平板"],
+            "features": ["HSK词汇", "智能闪卡", "多语言翻译", "智慧丝路AI助手", "其他"],
+            "pay_will": ["愿意", "需要考虑", "不愿意"]
+        }
+    },
+    "en": {
+        "title": "Smart Silk Road Website Feedback Survey",
+        "subtitle": "Thank you for using Smart Silk Road. Please take a few minutes to fill out this survey to help us improve.",
+        "langLabel": "🌐 Select Language:",
+        "sec1": "Part 1: Basic Information",
+        "sec2": "Part 2: Website Usage",
+        "sec3": "Part 3: Satisfaction Rating",
+        "sec4": "Part 4: Open Feedback",
+        "ratingHint": "Scale: 1=Very dissatisfied, 2=Dissatisfied, 3=Neutral, 4=Satisfied, 5=Very satisfied",
+        "q1": "1. Your nationality:", "q2": "2. Your native language:", "q3": "3. Your age:", "q4": "4. Your Chinese level:",
+        "q5": "5. Main purpose of learning Chinese (multiple):",
+        "q6": "6. How often do you use Smart Silk Road?",
+        "q7": "7. Main device used to access the website:",
+        "q8": "8. Most used features (multiple):",
+        "q9": "9. Overall satisfaction:",
+        "q10": "10. Page loading speed and stability:",
+        "q11": "11. Ease of use and navigation:",
+        "q12": "12. What do you like about Smart Silk Road?",
+        "q13": "13. What do you think needs improvement?",
+        "q14": "14. Any suggestions for us?",
+        "q15": "15. Would you pay for premium features? (9.9 RMB/3 months)",
+        "ph1": "Enter your nationality", "ph2": "Enter your native language",
+        "ph3": "e.g. 20", "ph4": "e.g. HSK3", "ph5": "e.g. work, exam, interest...",
+        "ph12": "Write what you like...", "ph13": "Write what needs improvement...", "ph14": "Write your suggestions...",
+        "next": "Next", "prev": "Previous", "submit": "Submit",
+        "resTitle": "Submitted!",
+        "resText": "Thank you! Your feedback is vital to us. Happy learning!",
+        "restart": "Fill Again",
+        "progress": "Progress: ",
+        "fillAll": "Please complete all required fields on this page",
+        "ratings": ["Very dissatisfied", "Dissatisfied", "Neutral", "Satisfied", "Very satisfied"],
+        "opts": {
+            "age": ["Under 18", "18-22", "23-30", "Over 30"],
+            "level": ["Beginner", "HSK1-2", "HSK3-4", "HSK5-6", "HSK7-9"],
+            "purpose": ["Study/Exams", "Job/Internship", "Daily communication", "Chinese culture", "Other"],
+            "frequency": ["Multiple times daily", "Once daily", "Few times/week", "Occasionally"],
+            "device": ["Computer/Laptop", "Phone", "Tablet"],
+            "features": ["HSK Vocabulary", "Smart Flashcards", "Multi-language translation", "AI Assistant", "Other"],
+            "pay_will": ["Yes", "Need to consider", "No"]
+        }
+    },
+    "ja": {
+        "title": "スマートシルクロード ウェブサイト アンケート",
+        "subtitle": "スマートシルクロードをご利用いただきありがとうございます。改善のため、アンケートにご協力ください。",
+        "langLabel": "🌐 言語を選択:",
+        "sec1": "パート1：基本情報",
+        "sec2": "パート2：ウェブサイトの利用状況",
+        "sec3": "パート3：満足度評価",
+        "sec4": "パート4：自由提案",
+        "ratingHint": "評価：1=非常に不満、2=不満、3=普通、4=満足、5=非常に満足",
+        "q1": "1. 国籍：", "q2": "2. 母語：", "q3": "3. 年齢：", "q4": "4. 中国語レベル：",
+        "q5": "5. 中国語学習の主な目的（複数選択可）：",
+        "q6": "6. スマートシルクロードの利用頻度：",
+        "q7": "7. 主なアクセス端末：",
+        "q8": "8. よく使う機能（複数選択可）：",
+        "q9": "9. 全体的な満足度：",
+        "q10": "10. ページの読み込み速度と安定性：",
+        "q11": "11. 操作性のわかりやすさ：",
+        "q12": "12. スマートシルクロードの良い点：",
+        "q13": "13. 改善すべき点：",
+        "q14": "14. ご提案があれば：",
+        "q15": "15. プレミアム機能に課金しますか？（9.9元/3ヶ月）",
+        "ph1": "国籍を入力", "ph2": "母語を入力",
+        "ph3": "例：20歳", "ph4": "例：HSK3級", "ph5": "例：仕事、試験、趣味...",
+        "ph12": "良い点を書いてください...", "ph13": "改善点を書いてください...", "ph14": "提案を書いてください...",
+        "next": "次へ", "prev": "前へ", "submit": "送信",
+        "resTitle": "送信完了！",
+        "resText": "ご協力ありがとうございます。あなたのフィードバックは非常に重要です。",
+        "restart": "もう一度回答",
+        "progress": "進捗：",
+        "fillAll": "このページの必須項目をすべて入力してください",
+        "ratings": ["非常に不満", "不満", "普通", "満足", "非常に満足"],
+        "opts": {
+            "age": ["18歳未満", "18-22歳", "23-30歳", "30歳以上"],
+            "level": ["初心者", "HSK1-2", "HSK3-4", "HSK5-6", "HSK7-9"],
+            "purpose": ["学業・試験", "仕事・インターン", "日常会話", "中国文化への理解", "その他"],
+            "frequency": ["毎日複数回", "毎日1回", "週に数回", "たまに"],
+            "device": ["パソコン", "スマホ", "タブレット"],
+            "features": ["HSK語彙", "スマート単語カード", "多言語翻訳", "AIアシスタント", "その他"],
+            "pay_will": ["はい", "検討する", "いいえ"]
+        }
+    },
+    "ko": {
+        "title": "스마트 실크로드 웹사이트 의견 조사",
+        "subtitle": "스마트 실크로드를 이용해 주셔서 감사합니다. 개선을 위해 몇 분만 시간을 내어 설문에 응해 주세요.",
+        "langLabel": "🌐 언어 선택:",
+        "sec1": "파트1: 기본 정보",
+        "sec2": "파트2: 웹사이트 이용 현황",
+        "sec3": "파트3: 만족도 평가",
+        "sec4": "파트4: 자유 의견",
+        "ratingHint": "평가: 1=매우 불만족, 2=불만족, 3=보통, 4=만족, 5=매우 만족",
+        "q1": "1. 국적:", "q2": "2. 모국어:", "q3": "3. 연령:", "q4": "4. 중국어 수준:",
+        "q5": "5. 중국어 학습의 주요 목적(다중 선택):",
+        "q6": "6. 스마트 실크로드 이용 빈도:",
+        "q7": "7. 주로 사용하는 기기:",
+        "q8": "8. 가장 많이 사용하는 기능(다중 선택):",
+        "q9": "9. 전반적인 만족도:",
+        "q10": "10. 페이지 로딩 속도 및 안정성:",
+        "q11": "11. 사용 편의성:",
+        "q12": "12. 스마트 실크로드의 장점:",
+        "q13": "13. 개선이 필요한 점:",
+        "q14": "14. 제안 사항:",
+        "q15": "15. 프리미엄 기능에 비용을 지불하시겠습니까?(9.9위안/3개월)",
+        "ph1": "국적 입력", "ph2": "모국어 입력",
+        "ph3": "예: 20세", "ph4": "예: HSK3급", "ph5": "예: 취업, 시험, 관심...",
+        "ph12": "좋은 점을 적어주세요...", "ph13": "개선점을 적어주세요...", "ph14": "제안을 적어주세요...",
+        "next": "다음", "prev": "이전", "submit": "제출",
+        "resTitle": "제출 완료!",
+        "resText": "참여해 주셔서 감사합니다. 여러분의 의견은 저희에게 매우 중요합니다.",
+        "restart": "다시 작성",
+        "progress": "진행률: ",
+        "fillAll": "이 페이지의 필수 항목을 모두 입력해 주세요",
+        "ratings": ["매우 불만족", "불만족", "보통", "만족", "매우 만족"],
+        "opts": {
+            "age": ["18세 미만", "18-22세", "23-30세", "30세 이상"],
+            "level": ["초급", "HSK1-2", "HSK3-4", "HSK5-6", "HSK7-9"],
+            "purpose": ["학업/시험", "취업/인턴십", "일상 대화", "중국 문화 이해", "기타"],
+            "frequency": ["하루 여러 번", "하루 한 번", "주 몇 회", "가끔"],
+            "device": ["컴퓨터/노트북", "휴대폰", "태블릿"],
+            "features": ["HSK 어휘", "스마트 플래시카드", "다국어 번역", "AI 도우미", "기타"],
+            "pay_will": ["예", "고려해보겠다", "아니요"]
+        }
+    },
+    "th": {
+        "title": "แบบสำรวจความคิดเห็นเว็บไซต์ Smart Silk Road",
+        "subtitle": "ขอบคุณที่ใช้เว็บไซต์ Smart Silk Road กรุณาสละเวลาไม่กี่นาทีตอบแบบสำรวจเพื่อช่วยให้เราปรับปรุง",
+        "langLabel": "🌐 เลือกภาษา:",
+        "sec1": "ส่วนที่ 1: ข้อมูลพื้นฐาน",
+        "sec2": "ส่วนที่ 2: การใช้งานเว็บไซต์",
+        "sec3": "ส่วนที่ 3: การประเมินความพึงพอใจ",
+        "sec4": "ส่วนที่ 4: ข้อเสนอแนะ",
+        "q1": "1. สัญชาติ:", "q2": "2. ภาษาแม่:", "q3": "3. อายุ:", "q4": "4. ระดับภาษาจีน:",
+        "q5": "5. วัตถุประสงค์หลักในการเรียนภาษาจีน(เลือกได้หลายข้อ):",
+        "q6": "6. ความถี่ในการใช้ Smart Silk Road:",
+        "q7": "7. อุปกรณ์หลักที่ใช้เข้าถึงเว็บไซต์:",
+        "q8": "8. ฟังก์ชันที่ใช้บ่อย(เลือกได้หลายข้อ):",
+        "q9": "9. ความพึงพอใจโดยรวม:",
+        "q10": "10. ความเร็วและเสถียรภาพในการโหลดหน้า:",
+        "q11": "11. ความสะดวกในการใช้งาน:",
+        "q12": "12. จุดเด่นของ Smart Silk Road:",
+        "q13": "13. จุดที่ควรปรับปรุง:",
+        "q14": "14. ข้อเสนอแนะ:",
+        "q15": "15. คุณยินดีจ่ายสำหรับฟีเจอร์พรีเมียมหรือไม่?(9.9 หยวน/3เดือน)",
+        "ph1": "กรอกสัญชาติ", "ph2": "กรอกภาษาแม่",
+        "ph3": "เช่น 20 ปี", "ph4": "เช่น HSK3", "ph5": "เช่น งาน สอบ ความสนใจ...",
+        "ph12": "เขียนสิ่งที่คุณชอบ...", "ph13": "เขียนสิ่งที่ควรปรับปรุง...", "ph14": "เขียนข้อเสนอแนะ...",
+        "next": "ถัดไป", "prev": "ก่อนหน้า", "submit": "ส่ง",
+        "resTitle": "ส่งสำเร็จ!",
+        "resText": "ขอบคุณสำหรับการมีส่วนร่วม! ความคิดเห็นของคุณสำคัญต่อเรามาก",
+        "restart": "ตอบใหม่",
+        "progress": "ความคืบหน้า: ",
+        "fillAll": "กรุณากรอกข้อมูลที่จำเป็นทั้งหมดในหน้านี้",
+        "ratings": ["ไม่พอใจมาก", "ไม่พอใจ", "ปานกลาง", "พอใจ", "พอใจมาก"],
+        "opts": {
+            "age": ["ต่ำกว่า 18", "18-22", "23-30", "มากกว่า 30"],
+            "level": ["เริ่มต้น", "HSK1-2", "HSK3-4", "HSK5-6", "HSK7-9"],
+            "purpose": ["การเรียน/สอบ", "งาน/ฝึกงาน", "สื่อสารประจำวัน", "เข้าใจวัฒนธรรมจีน", "อื่นๆ"],
+            "frequency": ["หลายครั้งต่อวัน", "วันละครั้ง", "สัปดาห์ละหลายครั้ง", "นานๆครั้ง"],
+            "device": ["คอมพิวเตอร์", "โทรศัพท์", "แท็บเล็ต"],
+            "features": ["คำศัพท์ HSK", "บัตรคำอัจฉริยะ", "แปลหลายภาษา", "AI ผู้ช่วย", "อื่นๆ"],
+            "pay_will": ["ยินดี", "ต้องคิดก่อน", "ไม่ยินดี"]
+        }
+    },
+    "ru": {
+        "title": "Опрос о сайте Smart Silk Road",
+        "subtitle": "Спасибо за использование Smart Silk Road. Пожалуйста, уделите несколько минут этому опросу, чтобы помочь нам стать лучше.",
+        "sec1": "Часть 1: Основная информация",
+        "sec2": "Часть 2: Использование сайта",
+        "sec3": "Часть 3: Оценка удовлетворенности",
+        "sec4": "Часть 4: Открытые предложения",
+        "q1": "1. Гражданство:", "q2": "2. Родной язык:", "q3": "3. Возраст:", "q4": "4. Уровень китайского:",
+        "q5": "5. Основная цель изучения китайского (несколько вариантов):",
+        "q6": "6. Как часто вы пользуетесь Smart Silk Road?",
+        "q7": "7. Основное устройство для доступа:",
+        "q8": "8. Самые используемые функции (несколько вариантов):",
+        "q9": "9. Общая удовлетворенность:",
+        "q10": "10. Скорость загрузки и стабильность:",
+        "q11": "11. Удобство использования:",
+        "q12": "12. Что вам нравится в Smart Silk Road?",
+        "q13": "13. Что нужно улучшить?",
+        "q14": "14. Есть ли у вас предложения?",
+        "q15": "15. Готовы ли вы платить за премиум-функции? (9,9 юаня/3 месяца)",
+        "ph1": "Введите гражданство", "ph2": "Введите родной язык",
+        "ph3": "например 20", "ph4": "например HSK3", "ph5": "например работа, экзамен...",
+        "ph12": "Напишите, что нравится...", "ph13": "Напишите, что улучшить...", "ph14": "Напишите предложения...",
+        "next": "Далее", "prev": "Назад", "submit": "Отправить",
+        "resTitle": "Отправлено!",
+        "resText": "Спасибо! Ваше мнение очень важно для нас.",
+        "restart": "Заполнить снова",
+        "progress": "Прогресс: ",
+        "fillAll": "Пожалуйста, заполните все обязательные поля на этой странице",
+        "ratings": ["Очень недоволен", "Недоволен", "Нормально", "Доволен", "Очень доволен"],
+        "opts": {
+            "age": ["Младше 18", "18-22", "23-30", "Старше 30"],
+            "level": ["Нулевой", "HSK1-2", "HSK3-4", "HSK5-6", "HSK7-9"],
+            "purpose": ["Учеба/экзамены", "Работа/стажировка", "Общение", "Культура Китая", "Другое"],
+            "frequency": ["Несколько раз в день", "Раз в день", "Несколько раз в неделю", "Изредка"],
+            "device": ["Компьютер", "Телефон", "Планшет"],
+            "features": ["Лексика HSK", "Карточки", "Перевод", "ИИ-помощник", "Другое"],
+            "pay_will": ["Да", "Нужно подумать", "Нет"]
+        }
+    },
+    "fr": {
+        "title": "Enquête sur le site Smart Silk Road",
+        "subtitle": "Merci d'utiliser Smart Silk Road. Veuillez prendre quelques minutes pour répondre à ce questionnaire.",
+        "sec1": "Partie 1: Informations de base",
+        "sec2": "Partie 2: Utilisation du site",
+        "sec3": "Partie 3: Évaluation de la satisfaction",
+        "sec4": "Partie 4: Suggestions",
+        "q1": "1. Nationalité:", "q2": "2. Langue maternelle:", "q3": "3. Âge:", "q4": "4. Niveau de chinois:",
+        "q5": "5. Objectif principal de l'apprentissage du chinois (choix multiples):",
+        "q6": "6. À quelle fréquence utilisez-vous Smart Silk Road?",
+        "q7": "7. Appareil principal pour accéder au site:",
+        "q8": "8. Fonctions les plus utilisées (choix multiples):",
+        "q9": "9. Satisfaction générale:",
+        "q10": "10. Vitesse de chargement et stabilité:",
+        "q11": "11. Facilité d'utilisation:",
+        "q12": "12. Qu'aimez-vous dans Smart Silk Road?",
+        "q13": "13. Quels points pourraient être améliorés?",
+        "q14": "14. Avez-vous des suggestions?",
+        "q15": "15. Paieriez-vous pour des fonctions premium? (9,9 yuans/3 mois)",
+        "ph1": "Entrez votre nationalité", "ph2": "Entrez votre langue maternelle",
+        "ph3": "ex: 20", "ph4": "ex: HSK3", "ph5": "ex: travail, examen, intérêt...",
+        "ph12": "Ce que vous aimez...", "ph13": "Points à améliorer...", "ph14": "Vos suggestions...",
+        "next": "Suivant", "prev": "Précédent", "submit": "Envoyer",
+        "resTitle": "Envoyé!",
+        "resText": "Merci! Vos commentaires sont très importants pour nous.",
+        "restart": "Recommencer",
+        "progress": "Progression: ",
+        "fillAll": "Veuillez remplir tous les champs obligatoires",
+        "ratings": ["Très insatisfait", "Insatisfait", "Neutre", "Satisfait", "Très satisfait"],
+        "opts": {
+            "age": ["Moins de 18", "18-22", "23-30", "Plus de 30"],
+            "level": ["Débutant", "HSK1-2", "HSK3-4", "HSK5-6", "HSK7-9"],
+            "purpose": ["Études/examens", "Emploi/stage", "Communication", "Culture chinoise", "Autre"],
+            "frequency": ["Plusieurs fois/jour", "Une fois/jour", "Quelques fois/semaine", "Occasionnellement"],
+            "device": ["Ordinateur", "Téléphone", "Tablette"],
+            "features": ["Vocabulaire HSK", "Cartes mémoire", "Traduction", "IA Assistant", "Autre"],
+            "pay_will": ["Oui", "À considérer", "Non"]
+        }
+    },
+    "vi": {
+        "title": "Khảo sát ý kiến về website Tơ Lụa Thông Minh",
+        "subtitle": "Cảm ơn bạn đã sử dụng website Tơ Lụa Thông Minh. Hãy dành vài phút để giúp chúng tôi cải thiện.",
+        "sec1": "Phần 1: Thông tin cơ bản",
+        "sec2": "Phần 2: Sử dụng website",
+        "sec3": "Phần 3: Đánh giá mức độ hài lòng",
+        "sec4": "Phần 4: Góp ý mở",
+        "q1": "1. Quốc tịch:", "q2": "2. Tiếng mẹ đẻ:", "q3": "3. Tuổi:", "q4": "4. Trình độ tiếng Trung:",
+        "q5": "5. Mục đích học tiếng Trung (chọn nhiều):",
+        "q6": "6. Bạn sử dụng Tơ Lụa Thông Minh với tần suất nào?",
+        "q7": "7. Thiết bị chính truy cập website:",
+        "q8": "8. Chức năng thường dùng nhất (chọn nhiều):",
+        "q9": "9. Mức độ hài lòng chung:",
+        "q10": "10. Tốc độ tải trang và độ ổn định:",
+        "q11": "11. Sự tiện lợi và dễ sử dụng:",
+        "q12": "12. Bạn thích điều gì ở Tơ Lụa Thông Minh?",
+        "q13": "13. Điểm cần cải thiện?",
+        "q14": "14. Bạn có đề xuất gì không?",
+        "q15": "15. Bạn sẵn sàng trả phí cho tính năng cao cấp? (9.9 tệ/3 tháng)",
+        "ph1": "Nhập quốc tịch", "ph2": "Nhập tiếng mẹ đẻ",
+        "ph3": "ví dụ: 20", "ph4": "ví dụ: HSK3", "ph5": "ví dụ: việc làm, thi cử...",
+        "ph12": "Viết điều bạn thích...", "ph13": "Viết điểm cần cải thiện...", "ph14": "Viết đề xuất...",
+        "next": "Tiếp", "prev": "Quay lại", "submit": "Gửi",
+        "resTitle": "Đã gửi!",
+        "resText": "Cảm ơn! Ý kiến của bạn rất quan trọng với chúng tôi.",
+        "restart": "Làm lại",
+        "progress": "Tiến độ: ",
+        "fillAll": "Vui lòng hoàn thành tất cả các mục bắt buộc",
+        "ratings": ["Rất không hài lòng", "Không hài lòng", "Bình thường", "Hài lòng", "Rất hài lòng"],
+        "opts": {
+            "age": ["Dưới 18", "18-22", "23-30", "Trên 30"],
+            "level": ["Chưa biết", "HSK1-2", "HSK3-4", "HSK5-6", "HSK7-9"],
+            "purpose": ["Học tập/thi cử", "Việc làm/thực tập", "Giao tiếp", "Tìm hiểu văn hóa", "Khác"],
+            "frequency": ["Nhiều lần/ngày", "Một lần/ngày", "Vài lần/tuần", "Thỉnh thoảng"],
+            "device": ["Máy tính", "Điện thoại", "Máy tính bảng"],
+            "features": ["Từ vựng HSK", "Thẻ ghi nhớ", "Dịch đa ngôn ngữ", "AI trợ lý", "Khác"],
+            "pay_will": ["Có", "Cần cân nhắc", "Không"]
+        }
+    },
+    "id": {
+        "title": "Survei Penggunaan Website Smart Silk Road",
+        "subtitle": "Terima kasih telah menggunakan Smart Silk Road. Mohon luangkan beberapa menit untuk mengisi survei ini.",
+        "sec1": "Bagian 1: Informasi Dasar",
+        "sec2": "Bagian 2: Penggunaan Website",
+        "sec3": "Bagian 3: Penilaian Kepuasan",
+        "sec4": "Bagian 4: Saran Terbuka",
+        "q1": "1. Kewarganegaraan:", "q2": "2. Bahasa ibu:", "q3": "3. Usia:", "q4": "4. Level bahasa Mandarin:",
+        "q5": "5. Tujuan utama belajar Mandarin (banyak pilihan):",
+        "q6": "6. Seberapa sering menggunakan Smart Silk Road?",
+        "q7": "7. Perangkat utama untuk mengakses:",
+        "q8": "8. Fitur yang paling sering digunakan (banyak pilihan):",
+        "q9": "9. Kepuasan keseluruhan:",
+        "q10": "10. Kecepatan loading dan stabilitas:",
+        "q11": "11. Kemudahan penggunaan:",
+        "q12": "12. Apa yang Anda suka dari Smart Silk Road?",
+        "q13": "13. Apa yang perlu ditingkatkan?",
+        "q14": "14. Ada saran?",
+        "q15": "15. Bersedia membayar untuk fitur premium? (9,9 yuan/3 bulan)",
+        "ph1": "Masukkan kewarganegaraan", "ph2": "Masukkan bahasa ibu",
+        "ph3": "contoh: 20", "ph4": "contoh: HSK3", "ph5": "contoh: kerja, ujian...",
+        "ph12": "Tulis yang Anda suka...", "ph13": "Tulis yang perlu ditingkatkan...", "ph14": "Tulis saran...",
+        "next": "Lanjut", "prev": "Kembali", "submit": "Kirim",
+        "resTitle": "Terkirim!",
+        "resText": "Terima kasih! Pendapat Anda sangat berarti bagi kami.",
+        "restart": "Isi Ulang",
+        "progress": "Progres: ",
+        "fillAll": "Silakan lengkapi semua bidang wajib di halaman ini",
+        "ratings": ["Sangat tidak puas", "Tidak puas", "Biasa", "Puas", "Sangat puas"],
+        "opts": {
+            "age": ["Di bawah 18", "18-22", "23-30", "Di atas 30"],
+            "level": ["Pemula", "HSK1-2", "HSK3-4", "HSK5-6", "HSK7-9"],
+            "purpose": ["Studi/ujian", "Kerja/magang", "Komunikasi", "Budaya Mandarin", "Lainnya"],
+            "frequency": ["Beberapa kali/hari", "Sekali/hari", "Beberapa kali/minggu", "Kadang-kadang"],
+            "device": ["Komputer", "HP", "Tablet"],
+            "features": ["Kosakata HSK", "Kartu flash", "Terjemahan", "AI Asisten", "Lainnya"],
+            "pay_will": ["Ya", "Perlu pertimbangan", "Tidak"]
+        }
+    }
+};
+
+let currentPage = 1;
+const totalPages = 4;
+let currentLang = 'zh';
+const totalQuestions = 15;
+
+const optKeys = {6:'frequency',7:'device',8:'features',15:'pay_will'};
+const singleQuestions = [6,7,15];
+const multipleQuestions = [8];
+const otherQuestions = [8];
+const ratingQuestions = [9,10,11];
+
+function isOtherOption(value) {
+    const v = ['其他','Other','その他','기타','อื่นๆ','Другое','Autre','Khác','Lainnya'];
+    return v.includes(value);
+}
+
+function showToast(msg) {
+    const toast = document.getElementById('toast');
+    toast.textContent = msg;
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), 2000);
+}
+
+function updateProgress() {
+    let answered = 0;
+    for (let i = 1; i <= totalQuestions; i++) {
+        const q = document.querySelector('[data-q="' + i + '"]');
+        if (!q) continue;
+        const type = q.dataset.type;
+        if (type === 'text') {
+            const input = q.querySelector('input, textarea');
+            if (input && input.value.trim()) answered++;
+        } else if (type === 'single') {
+            const checked = q.querySelector('input:checked');
+            if (checked) answered++;
+        } else if (type === 'multiple') {
+            const checked = q.querySelectorAll('input:checked');
+            if (checked.length > 0) answered++;
+        } else if (type === 'rating') {
+            const selected = q.querySelector('.rating-btn.selected');
+            if (selected) answered++;
+        }
+    }
+    const t = i18n[currentLang];
+    document.getElementById('progressText').textContent = t.progress + answered + '/' + totalQuestions;
+    document.getElementById('progressFill').style.width = (answered / totalQuestions * 100) + '%';
+}
+
+function renderOptions(qnum, lang) {
+    const t = i18n[lang];
+    const key = optKeys[qnum];
+    if (!key) return;
+    const opts = t.opts[key];
+    const container = document.getElementById('opts' + qnum);
+    if (!container) return;
+
+    const isSingle = singleQuestions.includes(qnum);
+    const hasOther = otherQuestions.includes(qnum);
+
+    let html = '';
+    opts.forEach((opt) => {
+        const inputType = isSingle ? 'radio' : 'checkbox';
+        const boxClass = isSingle ? 'radio-box' : 'check-box';
+        html += '<label class="option" data-qnum="' + qnum + '" data-value="' + opt + '" data-type="' + inputType + '">' +
+            '<input type="' + inputType + '" name="q' + qnum + '" value="' + opt + '">' +
+            '<span class="' + boxClass + '"></span>' +
+            '<span class="option-text">' + opt + '</span>' +
+            '</label>';
+    });
+    container.innerHTML = html;
+
+    container.querySelectorAll('.option').forEach(opt => {
+        opt.addEventListener('click', function(e) {
+            e.preventDefault();
+            const qnum = parseInt(this.dataset.qnum);
+            const type = this.dataset.type;
+            if (type === 'radio') {
+                handleSingleSelect(this, qnum);
+            } else {
+                handleMultipleSelect(this, qnum);
+            }
+        });
+    });
+}
+
+function renderRatings(lang) {
+    const t = i18n[lang];
+    for (let qnum of ratingQuestions) {
+        const group = document.getElementById('rating' + qnum);
+        if (!group) continue;
+        let html = '';
+        for (let i = 1; i <= 5; i++) {
+            html += '<div class="rating-btn" data-qnum="' + qnum + '" data-value="' + i + '">' + i + '</div>';
+        }
+        group.innerHTML = html;
+        group.querySelectorAll('.rating-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const qnum = parseInt(this.dataset.qnum);
+                const question = document.querySelector('[data-q="' + qnum + '"]');
+                question.querySelectorAll('.rating-btn').forEach(b => b.classList.remove('selected'));
+                this.classList.add('selected');
+                updateProgress();
+            });
+        });
+    }
+}
+
+function handleSingleSelect(el, qnum) {
+    const question = el.closest('.question');
+    const options = question.querySelectorAll('.option');
+    options.forEach(opt => {
+        opt.classList.remove('selected');
+        opt.querySelector('input').checked = false;
+    });
+    el.classList.add('selected');
+    el.querySelector('input').checked = true;
+
+    const otherInput = question.querySelector('.other-input');
+    if (otherInput) {
+        const val = el.querySelector('input').value;
+        otherInput.style.display = isOtherOption(val) ? 'block' : 'none';
+        if (!isOtherOption(val)) otherInput.value = '';
+    }
+    updateProgress();
+}
+
+function handleMultipleSelect(el, qnum) {
+    const question = el.closest('.question');
+    const input = el.querySelector('input');
+    input.checked = !input.checked;
+    el.classList.toggle('selected', input.checked);
+
+    const otherInput = question.querySelector('.other-input');
+    if (otherInput && isOtherOption(input.value)) {
+        otherInput.style.display = input.checked ? 'block' : 'none';
+        if (!input.checked) otherInput.value = '';
+    }
+    updateProgress();
+}
+
+function validatePage(page) {
+    const card = document.querySelector('[data-page="' + page + '"]');
+    const questions = card.querySelectorAll('.question');
+    let valid = true;
+    let firstInvalid = null;
+
+    questions.forEach(q => {
+        const type = q.dataset.type;
+        let qValid = false;
+        if (type === 'text') {
+            const input = q.querySelector('input, textarea');
+            if (input && input.value.trim()) qValid = true;
+        } else if (type === 'single') {
+            const checked = q.querySelector('input:checked');
+            if (checked) qValid = true;
+        } else if (type === 'multiple') {
+            const checked = q.querySelectorAll('input:checked');
+            if (checked.length > 0) qValid = true;
+        } else if (type === 'rating') {
+            const selected = q.querySelector('.rating-btn.selected');
+            if (selected) qValid = true;
+        }
+        if (!qValid) {
+            valid = false;
+            if (!firstInvalid) firstInvalid = q;
+        }
+    });
+
+    if (!valid && firstInvalid) {
+        firstInvalid.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        showToast(i18n[currentLang].fillAll);
+    }
+    return valid;
+}
+
+function nextPage() {
+    if (!validatePage(currentPage)) return;
+    document.querySelector('[data-page="' + currentPage + '"]').classList.remove('active');
+    currentPage++;
+    document.querySelector('[data-page="' + currentPage + '"]').classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function prevPage() {
+    document.querySelector('[data-page="' + currentPage + '"]').classList.remove('active');
+    currentPage--;
+    document.querySelector('[data-page="' + currentPage + '"]').classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function changeLanguage(lang) {
+    currentLang = lang;
+    const t = i18n[lang];
+
+    // save current answers
+    const savedAnswers = {};
+    for (let key in optKeys) {
+        const container = document.getElementById('opts' + key);
+        if (!container) continue;
+        savedAnswers[key] = Array.from(container.querySelectorAll('input:checked')).map(inp => inp.value);
+    }
+
+    // Update titles
+    document.getElementById('mainTitle').textContent = t.title;
+    document.getElementById('subTitle').textContent = t.subtitle;
+    document.getElementById('langLabel').textContent = t.langLabel;
+
+    // Section titles
+    for (let i = 1; i <= 4; i++) {
+        const el = document.getElementById('sec' + i);
+        if (el) el.textContent = t['sec' + i];
+    }
+
+    // Question titles
+    for (let i = 1; i <= totalQuestions; i++) {
+        const el = document.getElementById('q' + i);
+        if (el) {
+            let html = t['q' + i];
+            if (![12,13,14].includes(i)) html += '<span class="required">*</span>';
+            el.innerHTML = html;
+        }
+    }
+
+    // Placeholders
+    document.getElementById('a1').placeholder = t.ph1;
+    document.getElementById('a2').placeholder = t.ph2;
+    if (document.getElementById('a3')) document.getElementById('a3').placeholder = t.ph3;
+    if (document.getElementById('a4')) document.getElementById('a4').placeholder = t.ph4;
+    if (document.getElementById('a5')) document.getElementById('a5').placeholder = t.ph5;
+    if (document.getElementById('a12')) document.getElementById('a12').placeholder = t.ph12;
+    if (document.getElementById('a13')) document.getElementById('a13').placeholder = t.ph13;
+    if (document.getElementById('a14')) document.getElementById('a14').placeholder = t.ph14;
+
+    // Rating labels
+    document.getElementById('ratingHint').textContent = t.ratingHint;
+    for (let i of ratingQuestions) {
+        document.getElementById('r' + i + 'l').textContent = t.ratings[0];
+        document.getElementById('r' + i + 'r').textContent = t.ratings[4];
+    }
+
+    // Buttons
+    document.querySelectorAll('.btn-next').forEach(b => b.textContent = t.next);
+    document.querySelectorAll('.btn-prev').forEach(b => b.textContent = t.prev);
+    document.getElementById('btnSubmit').textContent = t.submit;
+
+    // Result
+    document.getElementById('resTitle').textContent = t.resTitle;
+    document.getElementById('resText').textContent = t.resText;
+    document.getElementById('btnRestart').textContent = t.restart;
+
+    // Re-render options
+    for (let key in optKeys) {
+        renderOptions(parseInt(key), lang);
+    }
+
+    // Re-render ratings
+    renderRatings(lang);
+
+    // Restore saved answers
+    for (let key in savedAnswers) {
+        const container = document.getElementById('opts' + key);
+        if (!container) continue;
+        savedAnswers[key].forEach(val => {
+            const opts = container.querySelectorAll('.option');
+            opts.forEach(opt => {
+                if (opt.dataset.value === val) {
+                    opt.click();
+                }
+            });
+        });
+    }
+
+    updateProgress();
+}
+
+function submitSurvey() {
+    if (!validatePage(currentPage)) return;
+
+    const t = i18n[currentLang];
+    const answers = { language: currentLang };
+
+    // Text answers
+    for (let i of [1,2,3,4,5,12,13,14]) {
+        const input = document.getElementById('a' + i);
+        if (input && input.value.trim()) answers['q' + i] = input.value.trim();
+    }
+
+    // Single/multiple choice answers
+    for (let key in optKeys) {
+        const container = document.getElementById('opts' + key);
+        if (!container) continue;
+        const checked = container.querySelectorAll('input:checked');
+        const vals = Array.from(checked).map(c => c.value);
+        if (vals.length > 0) {
+            answers['q' + key] = vals.join(', ');
+        }
+        // "其他"补充
+        if (otherQuestions.includes(parseInt(key))) {
+            const otherInput = document.getElementById('o' + key);
+            if (otherInput && otherInput.value.trim()) {
+                answers['q' + key + '_other'] = otherInput.value.trim();
+            }
+        }
+    }
+
+    // Rating answers
+    for (let qnum of ratingQuestions) {
+        const selected = document.querySelector('#rating' + qnum + ' .rating-btn.selected');
+        if (selected) answers['q' + qnum] = selected.dataset.value;
+    }
+
+    const btn = document.getElementById('btnSubmit');
+    btn.textContent = '提交中...';
+    btn.disabled = true;
+
+    // Submit to Web3Forms
+    submitToServer(answers);
+
+    // Show result (no detail display)
+    setTimeout(() => {
+        document.querySelector('[data-page="' + currentPage + '"]').classList.remove('active');
+        document.getElementById('resultCard').classList.add('active');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }, 500);
+}
+
+// Init
+function init() {
+    const t = i18n['zh'];
+    document.getElementById('a1').placeholder = t.ph1;
+    document.getElementById('a2').placeholder = t.ph2;
+    if (document.getElementById('a3')) document.getElementById('a3').placeholder = t.ph3;
+    if (document.getElementById('a4')) document.getElementById('a4').placeholder = t.ph4;
+    if (document.getElementById('a5')) document.getElementById('a5').placeholder = t.ph5;
+    for (let i = 9; i <= 11; i++) {
+        document.getElementById('r' + i + 'l').textContent = t.ratings[0];
+        document.getElementById('r' + i + 'r').textContent = t.ratings[4];
+    }
+    for (let key in optKeys) renderOptions(parseInt(key), 'zh');
+    renderRatings('zh');
+    updateProgress();
+}
+init();
+</script>
+</body>
+</html>
